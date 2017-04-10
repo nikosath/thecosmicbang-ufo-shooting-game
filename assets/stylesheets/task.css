@@ -1,9 +1,9 @@
 /*
 This is already applied by Bootstrap
-* {
-    box-sizing: border-box;
-}
 */
+* {
+  box-sizing: border-box;
+}
 
 /* This doesn't seem to be necessary (in this case) */
 /*body {

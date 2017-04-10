@@ -22,13 +22,16 @@ function startGame() {
     countdownTimer = setInterval(decreaseCountdown, 1000);
     function decreaseCountdown() {
       elem.innerHTML = 'Seconds left: ' + (secondsLeft -= 1);
+      // Game end condition
       if (secondsLeft === 0) {
         stopGame();
       }
     }
   }
 
+  // Make increaseScore() available to handleShipClick()
   var increaseScore;
+
   function initialiseScore() {
     var elem = document.getElementById('score');
     var score = 0;
@@ -39,13 +42,12 @@ function startGame() {
     };
   }
 
-  ship.onclick = handleClick;
-  function handleClick() {
+  ship.onclick = function handleShipClick() {
     clearTimeout(movementTimer);
     increaseScore();
     moveShip();
     scheduleMove();
-  }
+  };
 
   function moveShip() {
     ship.style.left = Math.random() * rightBound + 'px';
