@@ -2,64 +2,56 @@
 window.onload = shootUFOGame;
 
 function shootUFOGame() {
-  var elmGameMap = document.getElementById('game-map');
+  var gameContainerElm = document.getElementById('game-container');
+  var scoreElm = document.getElementById('score');
+  var countdownElm = document.getElementById('countdown');
+  var shipElm = document.getElementById('spaceship');
+
+  // Rightmost bound the ship can move to
+  var rightBound = gameContainerElm.offsetWidth - shipElm.offsetWidth;
+  // Bottommost bound the ship can move to
+  var bottomBound = gameContainerElm.offsetHeight - shipElm.offsetHeight;
   // The setInterval() timer that's defined inside initialiseCountdown()
   var countdownTimer;
   // The setTimeout() timer that's defined inside scheduleMove()
   var movementTimer;
-  // increaseScore() is defined inside initialiseScore()
-  var increaseScore;
-
-  var elmShip = document.getElementById('spaceship');
-  elmShip.onclick = function handleShipClick() {
-    increaseScore();
-    hideShip();
-  };
-  
-  // Rightmost bound the ship can move to
-  var rightBound = elmGameMap.offsetWidth - elmShip.offsetWidth;
-  // Bottommost bound the ship can move to
-  var bottomBound = elmGameMap.offsetHeight - elmShip.offsetHeight;
-
-  var elmCountdown = document.getElementById('countdown');
+  // Player score
+  var score = 0;
   // Game duration
-  var secondsLeft = 10;
+  var secondsLeft = 60;
 
   function initialiseCountdown() {
-    elmCountdown.innerHTML = 'Seconds left: ' + secondsLeft;
+    countdownElm.innerHTML = 'Seconds left: ' + secondsLeft;
     countdownTimer = setInterval(decreaseCountdown, 1000);
   }
 
   function decreaseCountdown() {
-    elmCountdown.innerHTML = 'Seconds left: ' + (secondsLeft -= 1);
+    countdownElm.innerHTML = 'Seconds left: ' + (secondsLeft -= 1);
     // Game end condition
     if (secondsLeft === 0) {
       stopGame();
     }
   }
 
-  var elmScore = document.getElementById('score');
-  var score = 0;
-
   function initialiseScore() {
-    elmScore.innerHTML = 'Score: ' + score;
+    scoreElm.innerHTML = 'Score: ' + score;
   }
 
-  increaseScore = function () {
-    elmScore.innerHTML = 'Score: ' + (score += 1);
-  };
+  function increaseScore() {
+    scoreElm.innerHTML = 'Score: ' + (score += 1);
+  }
 
   function hideShip() {
-    elmShip.className = 'hidden';
+    shipElm.className = 'hidden';
   }
 
   function unhideShip() {
-    elmShip.className = '';
+    shipElm.className = '';
   }
 
   function moveShip() {
-    elmShip.style.left = Math.random() * rightBound + 'px';
-    elmShip.style.top = Math.random() * bottomBound + 'px';
+    shipElm.style.left = Math.random() * rightBound + 'px';
+    shipElm.style.top = Math.random() * bottomBound + 'px';
   }
 
   function scheduleMove() {
@@ -67,11 +59,20 @@ function shootUFOGame() {
     movementTimer = setTimeout(function () {
       moveShip();
       unhideShip();
+      // Each move schedules the next move
       scheduleMove();
     }, delay);
   }
 
+    function setShipClickHandler() {
+      shipElm.onclick = function () {
+        increaseScore();
+        hideShip();
+      };
+    }
+
   function startGame() {
+    setShipClickHandler();
     initialiseCountdown();
     initialiseScore();
     scheduleMove();
@@ -80,7 +81,7 @@ function shootUFOGame() {
   function stopGame() {
     clearInterval(countdownTimer);
     clearTimeout(movementTimer);
-    ship.onclick = null;
+    shipElm.onclick = null;
   }
 
   startGame();
