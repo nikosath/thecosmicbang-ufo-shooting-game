@@ -17,3 +17,17 @@ html, body {
 #spaceship {
   position: absolute;
 }
+
+.hidden {
+  display: none;
+}
+
+#score {
+  font-size: 40px;
+  color: green;
+}
+
+#countdown {
+  font-size: 40px;
+  color: red;
+}
