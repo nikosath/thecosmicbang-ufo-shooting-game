@@ -1,9 +1,6 @@
-/*
-This is already applied by Bootstrap
-*/
-/** {
+* {
   box-sizing: border-box;
-}*/
+}
 
 /* This doesn't seem to be necessary */
 /*body {
@@ -12,6 +9,10 @@ This is already applied by Bootstrap
 
 #spaceship {
   position: absolute;
+}
+
+.hidden {
+  display: none;
 }
 
 #score {

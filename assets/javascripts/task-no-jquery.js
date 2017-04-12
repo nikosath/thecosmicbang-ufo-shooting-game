@@ -1,15 +1,14 @@
-$(shootUFOGame);
+window.onload = shootUFOGame;
 
 function shootUFOGame() {
-  var $window = $(window);
-  var $score = $('#score');
-  var $countdown = $('#countdown');
-  var $ship = $('#spaceship');
+  var scoreElm = document.getElementById('score');
+  var countdownElm = document.getElementById('countdown');
+  var shipElm = document.getElementById('spaceship');
 
-  // Rightmost bound that the ship can move to
-  var rightBound = $window.width() - $ship.width();
-  // Bottommost bound that the ship can move to
-  var bottomBound = $window.height() - $ship.height();
+  // Rightmost bound the ship can move to
+  var rightBound = window.innerWidth - shipElm.offsetWidth;
+  // Bottommost bound the ship can move to
+  var bottomBound = window.innerHeight - shipElm.offsetHeight;
   // The setInterval() timer that's defined inside initialiseCountdown()
   var countdownTimer;
   // The setTimeout() timer that's defined inside scheduleMove()
@@ -21,13 +20,13 @@ function shootUFOGame() {
 
   function initialiseCountdown() {
     secondsLeft = 60;
-    $countdown.html('Seconds left: ' + secondsLeft);
+    countdownElm.innerHTML = 'Seconds left: ' + secondsLeft;
     // Decrease countdown every 1000ms
     countdownTimer = setInterval(decreaseCountdown, 1000);
   }
 
   function decreaseCountdown() {
-    $countdown.html('Seconds left: ' + (secondsLeft -= 1));
+    countdownElm.innerHTML = 'Seconds left: ' + (secondsLeft -= 1);
     // Game end condition
     if (secondsLeft === 0) {
       stopGame();
@@ -36,24 +35,24 @@ function shootUFOGame() {
 
   function initialiseScore() {
     score = 0;
-    $score.html('Score: ' + score);
+    scoreElm.innerHTML = 'Score: ' + score;
   }
 
   function increaseScore() {
-    $score.html('Score: ' + (score += 1));
+    scoreElm.innerHTML = 'Score: ' + (score += 1);
   }
 
   function hideShip() {
-    $ship.addClass('hidden');
+    shipElm.className = 'hidden';
   }
 
   function unhideShip() {
-    $ship.removeClass('hidden');
+    shipElm.className = '';
   }
 
   function moveShip() {
-    $ship.css('left', Math.random() * rightBound + 'px');
-    $ship.css('top', Math.random() * bottomBound + 'px');
+    shipElm.style.left = Math.random() * rightBound + 'px';
+    shipElm.style.top = Math.random() * bottomBound + 'px';
   }
 
   function scheduleMove() {
@@ -68,10 +67,10 @@ function shootUFOGame() {
   }
 
     function setShipClickHandler() {
-      $ship.on('click', function () {
+      shipElm.onclick = function () {
         increaseScore();
         hideShip();
-      });
+      };
     }
 
   function startGame() {
@@ -84,7 +83,7 @@ function shootUFOGame() {
   function stopGame() {
     clearInterval(countdownTimer);
     clearTimeout(movementTimer);
-    $ship.off('click');
+    shipElm.onclick = null;
   }
 
   startGame();
