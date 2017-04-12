@@ -14,12 +14,12 @@ This is already applied by Bootstrap
   position: absolute;
 }
 
-#score {
+#score-container {
   font-size: 40px;
   color: green;
 }
 
-#countdown {
+#countdown-container {
   font-size: 40px;
   color: red;
 }

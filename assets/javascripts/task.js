@@ -21,13 +21,14 @@ function shootUFOGame() {
 
   function initialiseCountdown() {
     secondsLeft = 60;
-    $countdown.html('Seconds left: ' + secondsLeft);
+    $countdown.html(secondsLeft);
     // Decrease countdown every 1000ms
     countdownTimer = setInterval(decreaseCountdown, 1000);
   }
 
   function decreaseCountdown() {
-    $countdown.html('Seconds left: ' + (secondsLeft -= 1));
+    console.log(secondsLeft);
+    $countdown.html(secondsLeft -= 1);
     // Game end condition
     if (secondsLeft === 0) {
       stopGame();
@@ -36,11 +37,11 @@ function shootUFOGame() {
 
   function initialiseScore() {
     score = 0;
-    $score.html('Score: ' + score);
+    $score.html(score);
   }
 
   function increaseScore() {
-    $score.html('Score: ' + (score += 1));
+    $score.html(score += 1);
   }
 
   function hideShip() {
