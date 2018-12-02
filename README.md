@@ -7,6 +7,6 @@ instructions needed. Unless you have time travelled from an olden era :-)
 ## Usage
 
 You may visit `index.html` at the
-[github project page](http://www.nikosath.space/thecosmicbang-ufo-shooting-game/).
+[github project page](http://www.nikosath.net/thecosmicbang-ufo-shooting-game/).
 As an alternative, you could download/clone the repo files and open
 `index.html` in your favorite browser.
